@@ -6,7 +6,7 @@ type CustomerResponse struct {
 	Status     int    `json:"status"`
 }
 
-type CuxtomerService interface {
+type CustomerService interface {
 	GetCustomers() ([]CustomerResponse, error)
-	GetCustomer() (*CustomerResponse, error)
+	GetCustomer(id int) (*CustomerResponse, error)
 }
