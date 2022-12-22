@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"hexagonal/repository"
+	"hexagonal/service"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -14,7 +16,7 @@ func main() {
 	}
 	customerRepository := repository.NewCustomerRepositoryDB(db)
 
-	// customerService := service.NewCustomerService(customerRepository)
+	customerService := service.NewCustomerService(customerRepository)
 
 	// customers, err := customerService.GetCustomers()
 	// if err != nil {
@@ -22,4 +24,12 @@ func main() {
 	// }
 
 	// fmt.Println("data", customers)
+
+	customer, err := customerService.GetCustomer(0)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("customer", customer)
+
 }
