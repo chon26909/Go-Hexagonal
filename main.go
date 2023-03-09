@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	db, err := sqlx.Open("mysql", "root:password@tcp(127.0.0.1:3306)/basic")
+	db, err := sqlx.Open("mysql", "basic:P@ssw0rd@tcp(127.0.0.1:1234)/basic")
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +22,8 @@ func main() {
 	customerHandler := handler.NewCustomerHandler(customerService)
 
 	router := mux.NewRouter()
-	router.HandleFunc("/customers", customerHandler.GetCustomers).Methods(http.MethodGet)
+	router.HandleFunc("/customer", customerHandler.GetCustomers).Methods(http.MethodGet)
+	router.HandleFunc("/customer/{customerID:[0-9]+}", customerHandler.GetCustomer).Methods(http.MethodGet)
 	http.ListenAndServe(":4000", router)
 
 }

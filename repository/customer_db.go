@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/jmoiron/sqlx"
 )
 
@@ -24,6 +26,9 @@ func (r customerRepositoryDB) GetAll() ([]Customer, error) {
 }
 
 func (r customerRepositoryDB) GetById(id int) (*Customer, error) {
+
+	fmt.Println("id", id)
+
 	customer := Customer{}
 	query := "select * from customers where customer_id=?"
 	err := r.db.Get(&customer, query, id)
